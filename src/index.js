@@ -14,19 +14,20 @@ function onUserInput(event) {
   fetchCountries(event.target.value)
     .then(data => {
       const capitals = data.map(elem => elem.name.official);
-
+console.log(capitals.length)
       if (capitals.length > 2 && capitals.length < 10) {
-        countryList.innerHTML='';
-
+        countryInfo.innerHTML = '';
+        countryList.innerHTML = '';
+        console.log(`>2 <10`);
         const marckupCountyList = data.map(
           elem =>
-            `<li><img src="${elem.flags.svg}" alt="${elem.name.official} width="50px" height="50px"><h1>${elem.name.official}</h1></li>`
+            `<li><img src="${elem.flags.svg}" alt="${elem.name.official} width="30px" height="30px"><h1>${elem.name.official}</h1></li>`
         );
         countryList.insertAdjacentHTML('beforeend', marckupCountyList.join(''));
-      } else if ((capitals.length = 1)) {
-        countryInfo.innerHTML='';
-        countryList.innerHTML='';
-
+      } else if ((capitals.length === 1)) {
+        countryInfo.innerHTML = '';
+        countryList.innerHTML = '';
+        console.log(`=1`);
         const markupCountyList = data.map(
           elem =>
             `<li><img src="${elem.flags.svg}" alt="${elem.name.official} width="100px" height="100px"><h1>${elem.name.official}</h1></li>`
@@ -38,9 +39,14 @@ function onUserInput(event) {
         );
         countryList.insertAdjacentHTML('beforeend', markupCountyList.join(''));
         countryInfo.insertAdjacentHTML('beforeend', markUpCountryInfo.join(''));
-      }else{
-        Notiflix.Notify.info('Too many matches found. Please enter a more specific name.')
+      } else {
+        console.log(`else`);
+        Notiflix.Notify.info(
+          'Too many matches found. Please enter a more specific name.'
+        );
       }
     })
-    .catch(err => Notiflix.Notify.failure('Oops, there is no country with that name'));
+    .catch(err =>
+      Notiflix.Notify.failure('Oops, there is no country with that name')
+    );
 }
